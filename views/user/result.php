@@ -74,9 +74,18 @@
     </div>
 </div>
 
-<div class="col-12 col-md-8 col-lg-5 mt-5">
-    <img class="w-100 mx-auto" src="<?= URL_STORAGE ?>system/timeline.png" alt="timeline.png">
+<div class="d-flex flex-column flex-lg-row align-items-center">
+    <div class="col-12 col-md-8 col-lg-4 py-0">
+    <img class="w-100 mx-auto" src="<?= URL_STORAGE ?>system/timeline_1.png" alt="timeline_1.png">
+    </div>
+    <div class="col-12 col-md-8 col-lg-4 py-0">
+        <img class="w-100 mx-auto" src="<?= URL_STORAGE ?>system/timeline_2.png" alt="timeline_2.png">
+    </div>
+    <div class="col-12 col-md-8 col-lg-4 py-0">
+        <img class="w-100 mx-auto" src="<?= URL_STORAGE ?>system/timeline_3.png" alt="timeline_3.png">
+    </div>
 </div>
+
 
 <div class="col-12 col-md-8 col-lg-6 text-center mt-5 mb-3 px-2">
     <div class="h5 fw-bold fst-italic text-yellow img-heading">
