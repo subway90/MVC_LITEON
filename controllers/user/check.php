@@ -54,9 +54,6 @@ if(empty($_SESSION['data']) || (time() - $_SESSION['temp']['time']) > 30) {
     }
 }
 
-
-test_array([$_SESSION['data'][0],$_SESSION['temp']['time'],time()]);
-
 // handle check
 foreach ($_SESSION['data'] as $row) {
     // find input
