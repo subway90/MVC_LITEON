@@ -11,8 +11,6 @@ $client->setAccessType('offline');
 $service = new Google_Service_Sheets($client);
 
 # [VARIABLE]
-$data = []; // danh sách data sheet
-$_SESSION['temp'] = [];
 
 # [HANDLE]
 
@@ -27,39 +25,47 @@ else {
 // save input
 $_SESSION['temp']['input'] = $input_name;
 
-// save time call API
-$_SESSION['temp']['time'] = time();
+// condition call API : null data OR time query < timenow 60s
+if(empty($_SESSION['data']) || (time() - $_SESSION['temp']['time']) > 30) {
+    // call API get data from GG Sheet
+    try {
+        // query get
+        $response = $service->spreadsheets_values->get(SHEET_ID, 'Info!A2:F');
+        
+        // get values
+        $_SESSION['data'] = $response->getValues(); 
 
-// call API get data from GG Sheet
-try {
-    // query get
-    $response = $service->spreadsheets_values->get(SHEET_ID, 'Info!A2:F');
-    
-    // get values
-    $data = $response->getValues(); 
+        // checks exist
+        if (empty($_SESSION['data'])) {
+            toast_create('danger', 'Không có dữ liệu nào được tìm thấy. / 未找到任何數據。');
+            route();
+        }
 
-    // checks exist
-    if (empty($data)) {
-        toast_create('danger', 'Không có dữ liệu nào được tìm thấy. / 未找到任何數據。');
-        route();
+        // save time call API
+        $_SESSION['temp']['time'] = time();
+
     }
-} catch (Google_Service_Exception $e) {
-    // error 429: too many request in time
-    if ($e->getCode() == 429) {
-        toast_create('danger', 'Vui lòng thử lại sau 1 phút / 請稍後再試一次，1分鐘後。');
-        route();
+    catch (Google_Service_Exception $e) {
+        // error 429: too many request in time
+        if ($e->getCode() == 429) {
+            toast_create('danger', 'Vui lòng thử lại sau 1 phút / 請稍後再試一次，1分鐘後。');
+            route();
+        }
     }
 }
 
+
+test_array([$_SESSION['data'][0],$_SESSION['temp']['time'],time()]);
+
 // handle check
-foreach ($data as $row) {
+foreach ($_SESSION['data'] as $row) {
     // find input
     if($input_name === mb_strtolower($row[0],'UTF-8')) {
         // save in session temp
         $_SESSION['temp']['result'] = $row;
 
         // find người ở cùng
-        foreach ($data as $row_2) {
+        foreach ($_SESSION['data'] as $row_2) {
             // cùng phòng, khác tên
             if($row_2[4] === $_SESSION['temp']['result'][4] && $row_2[0] !== $_SESSION['temp']['result'][0])
             $_SESSION['temp']['roomate'][] = $row_2;
