@@ -6,11 +6,11 @@
 }
 
 body {
-    /* background-image: url('/assets/file/system/background.png'); */
-    /* background-size: cover; */
-    /* background-position: top; */
-    /* background-repeat: no-repeat; */
-    background-color: #15b0b8;
+    background-image: url('/assets/file/system/background.png');
+    background-size: cover; /* Để ảnh phủ toàn bộ */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+    min-height: 100vh; /* Đảm bảo chiều cao tối thiểu là 100% chiều cao viewport */
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -25,9 +25,6 @@
 
 <body>
 <div class="container d-flex flex-column align-items-center">
-    <div class="col-6 col-lg-1 mt-5">
-            <img class="w-100" src="<?= URL_STORAGE ?>system/logo.png" alt="logo.png">
-    </div>
     <div class="col-12 col-lg-4 mt-3">
             <img class="w-100 img-heading" src="<?= URL_STORAGE ?>system/heading_1.png" alt="heading_1.png">
     </div>
