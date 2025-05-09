@@ -25,8 +25,15 @@ else {
 // save input
 $_SESSION['temp']['input'] = $input_name;
 
+
+
+
 // condition call API : null data OR time query < timenow 60s
 if(empty($_SESSION['data']) || (time() - $_SESSION['temp']['time']) > 30) {
+
+    // reset old result
+    $_SESSION['temp']['result'] = [];
+
     // call API get data from GG Sheet
     try {
         // query get
@@ -57,7 +64,7 @@ if(empty($_SESSION['data']) || (time() - $_SESSION['temp']['time']) > 30) {
 // handle check
 foreach ($_SESSION['data'] as $row) {
     // find input
-    if($input_name === mb_strtolower($row[0],'UTF-8')) {
+    if($input_name === mb_strtolower($row[0],'UTF-8') || $input_name === mb_strtolower($row[1],'UTF-8')) {
         // save in session temp
         $_SESSION['temp']['result'] = $row;
 
